@@ -8,6 +8,8 @@ from umnpmseac.config import (
     UMNPMSEACConfig,
     load_config,
 )
+from umnpmseac.input import InputContractError, POINT_SCHEMA, PointPattern
+from umnpmseac.loaders import LoaderError, load_visium_hd
 
 __all__ = [
     "ConfigError",
@@ -16,4 +18,9 @@ __all__ = [
     "SlurmConfig",
     "UMNPMSEACConfig",
     "load_config",
+    "InputContractError",
+    "POINT_SCHEMA",
+    "PointPattern",
+    "LoaderError",
+    "load_visium_hd",
 ]

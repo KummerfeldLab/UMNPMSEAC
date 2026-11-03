@@ -4,7 +4,11 @@ version = "0.1.0"
 description = "Framework for spatial permutation analysis of gene categories"
 readme = "README.md"
 requires-python = ">=3.11"
-dependencies = []
+dependencies = [
+    "h5py>=3.10",
+    "numpy>=1.26",
+    "polars>=2.0",
+]
 
 [project.optional-dependencies]
 slurm = ["submitit"]
