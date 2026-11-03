@@ -1,0 +1,16 @@
+[paths]
+# Paths may be absolute or relative to this configuration file.
+input_root = "/path/to/input"
+output_root = "/path/to/results"
+
+[execution]
+backend = "local"
+workers = 1
+
+# For a SLURM cluster, set backend = "slurm" and add:
+# [execution.slurm]
+# account = "your-account"
+# memory_gb = 64
+# cpus = 4
+# time_limit = "06:00:00"
+# partition = "your-partition"
