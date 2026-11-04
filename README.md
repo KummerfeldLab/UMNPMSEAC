@@ -27,4 +27,4 @@ print(points.counts_per_sample())
 print(points.for_sample("sample-a"))
 ```
 
-The path may also point to the run's `outs` directory or directly to a `square_XXXum` directory. A CosMx loader is future work.
+The path may also point to the run's `outs` directory or directly to a `square_XXXum` directory. A CosMx loader is the next thing.
