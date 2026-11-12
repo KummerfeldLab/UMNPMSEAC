@@ -9,10 +9,7 @@ import numpy as np
 import polars as pl
 
 from umnpmseac.input import POINT_SCHEMA, PointPattern
-
-
-class LoaderError(ValueError):
-    """A platform input cannot be converted to a point-pattern table."""
+from umnpmseac.loaders.errors import LoaderError
 
 
 def _bin_directory(path: str | Path, bin_size_um: int) -> Path:

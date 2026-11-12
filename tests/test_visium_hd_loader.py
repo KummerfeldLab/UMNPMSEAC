@@ -48,9 +48,11 @@ class VisiumHDLoaderTests(unittest.TestCase):
 
             self.assertEqual(points.sample_ids, ("sample-a",))
             self.assertEqual(points.counts_per_sample(), {"sample-a": 5})
-            self.assertEqual(points.table["gene"].to_list(), ["IL6", "CDKN1A"])
-            self.assertEqual(points.table["x_um"].to_list(), [8.0, 10.0])
-            self.assertEqual(points.table["y_um"].to_list(), [4.0, 6.0])
+            observations = {
+                gene: (x_um, y_um)
+                for gene, x_um, y_um in points.table.select("gene", "x_um", "y_um").rows()
+            }
+            self.assertEqual(observations, {"IL6": (8.0, 4.0), "CDKN1A": (10.0, 6.0)})
 
     def test_rejects_counts_without_matching_tissue_positions(self):
         with TemporaryDirectory() as directory:

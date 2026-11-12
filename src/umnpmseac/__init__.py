@@ -9,7 +9,7 @@ from umnpmseac.config import (
     load_config,
 )
 from umnpmseac.input import InputContractError, POINT_SCHEMA, PointPattern
-from umnpmseac.loaders import LoaderError, load_visium_hd
+from umnpmseac.loaders import LoaderError, load_cosmx, load_visium_hd
 
 __all__ = [
     "ConfigError",
@@ -22,5 +22,6 @@ __all__ = [
     "POINT_SCHEMA",
     "PointPattern",
     "LoaderError",
+    "load_cosmx",
     "load_visium_hd",
 ]

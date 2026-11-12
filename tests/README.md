@@ -6,7 +6,7 @@ Run the automated tests from the repository root with:
 python -m unittest discover -s tests -q
 ```
 
-The nine tests use small, generated inputs:
+The fourteen tests use small, generated inputs:
 
 | File | What the tests check |
 | --- | --- |
@@ -19,5 +19,11 @@ The nine tests use small, generated inputs:
 | `test_framework.py` | An incorrect schema or null values are rejected. |
 | `test_visium_hd_loader.py` | Visium HD counts join to bin positions, keep gene-expression features, and produce the expected coordinates and counts. |
 | `test_visium_hd_loader.py` | A count barcode without a matching tissue position is rejected. |
+| `test_cosmx_loader.py` | Transcript FOVs map to samples, pixel coordinates convert to microns, and individual detections keep `count = 1`. |
+| `test_cosmx_loader.py` | A single-sample slide can use one sample ID without listing FOVs. |
+| `test_cosmx_loader.py` | Unmapped FOVs are rejected instead of silently dropped. |
+| `test_cosmx_loader.py` | An invalid pixel scale or missing required transcript columns are rejected. |
+| `test_cosmx_loader.py` | CosMx control targets are kept by default, removed by known prefixes when requested, or removed by an exact user-supplied list. |
 
 The local 10x TinySample check described in `INPUT_CONTRACT.md` was run separately. It is not part of this automated test suite.
+The public CosMx subset check described there was also run separately; the downloaded file is not in this repository.

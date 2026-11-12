@@ -4,7 +4,7 @@ This repository starts with a small framework drawn from the `package` branch of
 
 ## Proposed flow
 
-1. Package input loaders accept Visium HD or CosMx data and identify samples. The first implemented loader reads Visium HD binned Space Ranger outputs; CosMx sample/FOV mapping remains to be defined.
+1. Package input loaders accept Visium HD or CosMx data and identify samples. The Visium HD loader reads binned Space Ranger outputs. The CosMx loader reads one transcript file and requires either one sample ID or an explicit FOV-to-sample mapping, plus the dataset-specific pixel scale.
 2. The input loaders produce the shared point-pattern table `(sample_id, x_um, y_um, gene, count)`.
 3. Analysis methods map genes to categories and convert the table into the representation they need. Lee's method can build coordinate arrays and KD-trees; Mac's method can build dense count and distance grids.
 4. A result layer saves distances, thresholds, optional p-values, and images as chosen by the user.
