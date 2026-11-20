@@ -18,7 +18,7 @@ CONTROL_PREFIXES = ("FalseCode", "SystemControl", "NegPrb", "Negative")
 def load_cosmx(
     path: str | Path,
     *,
-    microns_per_pixel: float,
+    microns_per_pixel: float = 0.12028,
     sample_id: str | None = None,
     fov_to_sample: Mapping[int | str, str | None] | None = None,
     include_controls: bool = True,
@@ -31,8 +31,9 @@ def load_cosmx(
     For example, fov_to_sample={194: "sample-a", 195: "sample-a", 196: "sample-b"}
     says FOVs 194 and 195 belong to one sample, and 196 to another.
 
-    The pixel scale must come from this dataset's metadata. Every retained
-    transcript contributes one molecule at its global position.
+    The default pixel scale is 0.12028 microns per pixel. Override it when
+    the dataset documents a different scale. Every retained transcript
+    contributes one molecule at its global position.
     Set ``include_controls=False`` to remove targets whose names begin with
     FalseCode, SystemControl, NegPrb, or Negative. Supply ``control_targets``
     to remove an exact dataset-specific list instead. Controls are kept by

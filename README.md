@@ -37,17 +37,22 @@ from umnpmseac import load_cosmx
 points = load_cosmx(
     "/path/to/slide_tx_file.csv.gz",
     sample_id="sample-a",  # Use this when the whole file is one sample.
-    microns_per_pixel=0.18,  # Example only: use the scale documented for your dataset.
 )
 
 # If the slide has multiple samples, supply their FOV numbers instead:
 points = load_cosmx(
     "/path/to/slide_tx_file.csv.gz",
     fov_to_sample={194: "sample-a", 195: "sample-a", 196: "sample-b", 197: None},
-    microns_per_pixel=0.18,  # Example only: use the scale documented for your dataset.
+)
+
+# Override the default only when your dataset documents a different scale:
+points = load_cosmx(
+    "/path/to/slide_tx_file.csv.gz",
+    sample_id="sample-a",
+    microns_per_pixel=0.18,  # Example of a dataset-specific override.
 )
 ```
 
-One call reads one slide's transcript file. Provide either `sample_id` for a single-sample slide or a mapping for **every** FOV on a multi-sample slide; `None` explicitly excludes a FOV. The loader uses global transcript coordinates and gives each retained transcript `count = 1`. The FOV-to-sample mapping and pixel scale must come from the dataset's documentation or sample annotations, not from the FOV number itself.
+One call reads one slide's transcript file. Provide either `sample_id` for a single-sample slide or a mapping for **every** FOV on a multi-sample slide; `None` explicitly excludes a FOV. The loader uses global transcript coordinates and gives each retained transcript `count = 1`. The user supplies the FOV-to-sample assignment; the loader does not infer it from FOV numbers. The default pixel scale is **0.12028 µm/pixel**, as documented for a [Bruker CosMx dataset](https://www.brukerspatialbiology.com/wp-content/uploads/2024/11/MK6578_CosMx_Human_Lymph_Node_FFPE_Dataset_webpage.html). A [different public CosMx dataset](https://datadryad.org/dataset/doi:10.5061/dryad.ksn02v7b1) specifies 0.18 µm/pixel, so check your dataset's documentation and pass `microns_per_pixel` if it differs.
 
 Controls are kept by default for quality control (QC). Pass `include_controls=False` to remove targets beginning with `FalseCode`, `SystemControl`, `NegPrb`, or `Negative` before producing the point table. These prefixes are not guaranteed for every panel. For a dataset with its own control names, pass `control_targets={"name1", "name2"}` alongside `include_controls=False` to remove exactly those targets instead. The choice affects the reads available to later permutations.

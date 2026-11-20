@@ -6,7 +6,7 @@ Run the automated tests from the repository root with:
 python -m unittest discover -s tests -q
 ```
 
-The fourteen tests use small, generated inputs:
+The fifteen tests use small, generated inputs:
 
 | File | What the tests check |
 | --- | --- |
@@ -21,6 +21,7 @@ The fourteen tests use small, generated inputs:
 | `test_visium_hd_loader.py` | A count barcode without a matching tissue position is rejected. |
 | `test_cosmx_loader.py` | Transcript FOVs map to samples, pixel coordinates convert to microns, and individual detections keep `count = 1`. |
 | `test_cosmx_loader.py` | A single-sample slide can use one sample ID without listing FOVs. |
+| `test_cosmx_loader.py` | The default CosMx pixel scale is 0.12028 µm/pixel and can be overridden. |
 | `test_cosmx_loader.py` | Unmapped FOVs are rejected instead of silently dropped. |
 | `test_cosmx_loader.py` | An invalid pixel scale or missing required transcript columns are rejected. |
 | `test_cosmx_loader.py` | CosMx control targets are kept by default, removed by known prefixes when requested, or removed by an exact user-supplied list. |

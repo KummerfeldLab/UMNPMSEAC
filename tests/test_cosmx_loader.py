@@ -51,6 +51,16 @@ class CosMxLoaderTests(unittest.TestCase):
 
             self.assertEqual(points.counts_per_sample(), {"one-sample": 4})
 
+    def test_default_pixel_scale_can_be_overridden(self):
+        with TemporaryDirectory() as directory:
+            path = Path(directory) / "tx_file.csv"
+            write_transcripts(path)
+            default = load_cosmx(path, sample_id="sample-a")
+            override = load_cosmx(path, sample_id="sample-a", microns_per_pixel=0.18)
+
+            self.assertEqual(default.table["x_um"][0], 12.028)
+            self.assertEqual(override.table["x_um"][0], 18.0)
+
     def test_maps_fovs_converts_coordinates_and_preserves_molecules(self):
         with TemporaryDirectory() as directory:
             path = Path(directory) / "tx_file.csv"
