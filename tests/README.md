@@ -34,3 +34,16 @@ The twenty-one tests use small, generated inputs:
 
 The local 10x TinySample check described in `INPUT_CONTRACT.md` was run separately. It is not part of this automated test suite.
 The public CosMx subset check described there was also run separately; the downloaded file is not in this repository.
+
+## Full numerical comparison on local sample data
+
+Run `python tests/check_sample_scores.py --data-root ../sample_data` from the repository root. The data location is an argument; the downloaded files are outside the repository. The script compares every score against direct pairwise Euclidean distances calculated in batches of 128 query positions, without using a KD-tree for the reference calculation. It also checks that the result contains exactly the unique observed locations. It prints the categories, target counts, and errors as JSON and fails if scores disagree beyond `rtol=1e-12, atol=1e-12`.
+
+On November 25, 2026, all comparisons passed:
+
+| Input | Positions checked | Largest absolute difference (µm) |
+| --- | ---: | ---: |
+| CosMx public subset, four FOVs, controls excluded | 110,155 | 7.11 × 10⁻¹⁵ |
+| Visium HD TinySample, 8 µm bins | 10,605 | 0 |
+
+The CosMx check uses the four category gene lists in the script and treats each FOV as an independent technical unit; these are not verified biological sample assignments. The scale remains unverified for that subset. The Visium check uses `mt-Co3` and `mt-Atp6` as illustrative categories because this mouse sample lacks the human example genes checked previously. Both comparisons reuse loader coordinates, so they validate the observed-score computation for those inputs, not the coordinate conversion, biological interpretation, or future permutations.

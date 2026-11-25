@@ -6,7 +6,7 @@ from collections.abc import Collection, Mapping
 
 import numpy as np
 import polars as pl
-from scipy.spatial import cKDTree
+from scipy.spatial import KDTree
 
 from umnpmseac.input import PointPattern
 
@@ -65,7 +65,7 @@ def score_observed_maxmin(
             targets = sample.filter(pl.col("gene").is_in(genes)).select("x_um", "y_um").unique()
             if targets.is_empty():
                 raise AnalysisError(f"sample {sample_id!r} has no detected genes in category {name!r}")
-            distances, _ = cKDTree(targets.to_numpy()).query(query_xy)
+            distances, _ = KDTree(targets.to_numpy()).query(query_xy)
             np.maximum(maxmin, distances, out=maxmin)
 
         results.append(
