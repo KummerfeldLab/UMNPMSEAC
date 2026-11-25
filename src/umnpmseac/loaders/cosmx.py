@@ -8,7 +8,7 @@ from pathlib import Path
 
 import polars as pl
 
-from umnpmseac.input import POINT_SCHEMA, PointPattern
+from umnpmseac.input import InputMetadata, POINT_SCHEMA, PointPattern
 from umnpmseac.loaders.errors import LoaderError
 
 
@@ -133,4 +133,13 @@ def load_cosmx(
     )
     if table.is_empty():
         raise LoaderError("no transcripts remain after FOV and control selection")
-    return PointPattern(table)
+    return PointPattern(
+        table,
+        InputMetadata(
+            "cosmx",
+            microns_per_pixel=microns_per_pixel,
+            fov_to_sample=tuple(sorted(mapping.items())),
+            include_controls=include_controls,
+            control_targets=tuple(sorted(control_targets)) if control_targets is not None else None,
+        ),
+    )

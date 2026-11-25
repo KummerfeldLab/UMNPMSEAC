@@ -6,7 +6,7 @@ Run the automated tests from the repository root with:
 python -m unittest discover -s tests -q
 ```
 
-The fifteen tests use small, generated inputs:
+The twenty-one tests use small, generated inputs:
 
 | File | What the tests check |
 | --- | --- |
@@ -25,6 +25,12 @@ The fifteen tests use small, generated inputs:
 | `test_cosmx_loader.py` | Unmapped FOVs are rejected instead of silently dropped. |
 | `test_cosmx_loader.py` | An invalid pixel scale or missing required transcript columns are rejected. |
 | `test_cosmx_loader.py` | CosMx control targets are kept by default, removed by known prefixes when requested, or removed by an exact user-supplied list. |
+| `test_observed_score.py` | A-at-0/B-at-10 scores only the two observed locations, including when counts repeat. |
+| `test_observed_score.py` | A midpoint is scored only when another molecule is observed there. |
+| `test_observed_score.py` | Scores are calculated separately for each sample. |
+| `test_observed_score.py` | A sample missing a requested category raises a clear error. |
+| `test_result_output.py` | A run saves readable Parquet scores and JSON metadata under the configured output root, including categories and loader scale. |
+| `test_result_output.py` | Existing run directories, unsafe names, and missing categories do not overwrite or create results. |
 
 The local 10x TinySample check described in `INPUT_CONTRACT.md` was run separately. It is not part of this automated test suite.
 The public CosMx subset check described there was also run separately; the downloaded file is not in this repository.

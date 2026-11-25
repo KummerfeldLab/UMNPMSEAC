@@ -31,7 +31,7 @@ The loader keeps control targets by default. Set `include_controls=False` to rem
 
 This version uses observed points as its spatial input. It does not require a separate bin, cell-centre, grid, or tissue-boundary table.
 
-`umnpmseac.PointPattern` validates a Polars DataFrame against this contract. It exposes the validated table, the sample IDs, per-sample tables, and total counts per sample. These are the inputs on which analysis methods can build without creating a Python object for every observation.
+`umnpmseac.PointPattern` validates a Polars DataFrame against this contract. It exposes the validated table, the sample IDs, per-sample tables, and total counts per sample. Loader-created patterns also carry settings metadata separately from the five-column table so saved results can record the coordinate scale and loader choices. These are the inputs on which analysis methods can build without creating a Python object for every observation.
 
 I loaded the [10x Visium HD example data](https://www.10xgenomics.com/support/software/space-ranger/latest/resources/visium-hd-example-data) at 2, 8, and 16 µm. Each load produced the five columns and types above, and its total `count` matched the source HDF5 matrix. This was a manual check of the loader and input format, not a test of the PMSEAC analysis.
 

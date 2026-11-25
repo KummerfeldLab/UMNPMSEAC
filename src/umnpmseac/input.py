@@ -23,16 +23,31 @@ class InputContractError(ValueError):
 
 
 @dataclass(frozen=True, slots=True)
+class InputMetadata:
+    """Loader settings kept separately from the five-column observation table."""
+
+    source_format: str
+    microns_per_pixel: float | None = None
+    bin_size_um: int | None = None
+    fov_to_sample: tuple[tuple[str, str | None], ...] | None = None
+    include_controls: bool | None = None
+    control_targets: tuple[str, ...] | None = None
+
+
+@dataclass(frozen=True, slots=True)
 class PointPattern:
-    """Validated observations with sample-relative micron coordinates.
+    """Validated observations with micron coordinates consistent within samples.
 
     ``table`` remains columnar; counts are not expanded into individual rows.
     """
 
     table: pl.DataFrame
+    metadata: InputMetadata | None = None
 
     def __post_init__(self) -> None:
         table = self.table
+        if self.metadata is not None and not isinstance(self.metadata, InputMetadata):
+            raise InputContractError("metadata must be InputMetadata or None")
         if not isinstance(table, pl.DataFrame):
             raise InputContractError("input must be a polars.DataFrame")
         if table.schema != POINT_SCHEMA:

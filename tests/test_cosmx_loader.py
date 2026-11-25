@@ -60,6 +60,8 @@ class CosMxLoaderTests(unittest.TestCase):
 
             self.assertEqual(default.table["x_um"][0], 12.028)
             self.assertEqual(override.table["x_um"][0], 18.0)
+            self.assertEqual(default.metadata.microns_per_pixel, 0.12028)
+            self.assertEqual(override.metadata.microns_per_pixel, 0.18)
 
     def test_maps_fovs_converts_coordinates_and_preserves_molecules(self):
         with TemporaryDirectory() as directory:

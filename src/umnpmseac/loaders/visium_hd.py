@@ -8,7 +8,7 @@ import h5py
 import numpy as np
 import polars as pl
 
-from umnpmseac.input import POINT_SCHEMA, PointPattern
+from umnpmseac.input import InputMetadata, POINT_SCHEMA, PointPattern
 from umnpmseac.loaders.errors import LoaderError
 
 
@@ -132,4 +132,4 @@ def load_visium_hd(
         pl.col("gene").cast(pl.String),
         pl.col("count").cast(pl.Int64),
     ).cast(POINT_SCHEMA)
-    return PointPattern(table)
+    return PointPattern(table, InputMetadata("visium_hd", bin_size_um=bin_size_um))

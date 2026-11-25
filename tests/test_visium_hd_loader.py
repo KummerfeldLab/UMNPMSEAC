@@ -48,6 +48,8 @@ class VisiumHDLoaderTests(unittest.TestCase):
 
             self.assertEqual(points.sample_ids, ("sample-a",))
             self.assertEqual(points.counts_per_sample(), {"sample-a": 5})
+            self.assertEqual(points.metadata.source_format, "visium_hd")
+            self.assertEqual(points.metadata.bin_size_um, 2)
             observations = {
                 gene: (x_um, y_um)
                 for gene, x_um, y_um in points.table.select("gene", "x_um", "y_um").rows()
